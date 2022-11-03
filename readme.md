@@ -7,9 +7,9 @@ _There are two sections at midjourney.com/showcase.  In the upper right part of 
 ### Requirements as I understand them
 
 1. a nodeJS script that 
-   1. gets the lists of image items from the recent and top tabs via API endpoints
-   2. compares the lists with the lists stored during the previous runs
-   3. downloads the new items in the highest resolution
+   * gets the lists of image items from the recent and top tabs via API endpoints
+   * compares the lists with the lists stored during the previous runs
+   * downloads the new items in the highest resolution
 2. a nodeJS script that
-   1. runs the script from 1. periodically
-   2. and works utill it is stopped
+   * runs the script from 1. periodically
+   * and works utill it is stopped
