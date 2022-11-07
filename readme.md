@@ -17,3 +17,7 @@ _There are two sections at midjourney.com/showcase.  In the upper right part of 
 2. a nodeJS script that
    * runs the script from 1. periodically
    * and works utill it is stopped
+
+## Module Dependencies
+
+![image](https://user-images.githubusercontent.com/19654456/200335660-f90f278b-13c9-486b-b2dd-d23e168d6a73.png)
