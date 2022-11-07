@@ -4,6 +4,7 @@ const { readFile, writeFile, appendFile } = require('fs').promises
 const DB_FILE = 'db.json'
 const DONE_LIST = 'downloaded'
 let db
+let doneList
 
 async function addToDB(...imageDescriptors) {
   if (!db) db = await readDB()
@@ -20,18 +21,14 @@ async function countImages() {
 }
 
 async function markAsDownloaded(imageDescriptor) {
-  if (!db) db = await readDB()
+  // create file if not exists
 
-  const index = db.findIndex(desc => desc.url === imageDescriptor.url)
-
-  if (index === -1) throw new Error('Image not found in DB')
-
-  db[index].downloaded = true
-
-  await writeDB(db)
+  await appendFile(DONE_LIST, imageDescriptor.id + '\n')
 }
 
 async function readDB() {
+  if (!doneList) doneList = (await readFile(DONE_LIST, 'utf8').catch(() => ''))?.split(/\r?\n/) || []
+
   if (db) return db
 
   try {
@@ -50,5 +47,5 @@ async function writeDB(db) {
 async function getNotDonwloaded() {
   if (!db) db = await readDB()
 
-  return db.filter(desc => !desc.downloaded)
+  return db.filter(desc => !doneList.includes(desc.id))
 } 

@@ -1,5 +1,9 @@
 # [Midjourney Task from Ozan Skysurfer](https://github.com/unibreakfast/midjourney-task-from-ozan-skysurfer)
 
+Run command: 
+
+`node run-download-task-periodically`
+
 ## Task Description
 
 _There are two sections at midjourney.com/showcase.  In the upper right part of the page.  One tab recent as the other tab top. We want to periodically scan all the contents in these sections and automatically download them in the highest resolution if there are any new ones added._
