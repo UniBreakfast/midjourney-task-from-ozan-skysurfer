@@ -5,7 +5,7 @@ async function getImageDescriptors() {
   const arraysOfItems = []
 
   for (const link of links) {
-    const items = await getDataFrom(link).catch(err => console.error(err))
+    const items = await getDataFrom(link).catch(() => null)
 
     if (items) {
       arraysOfItems.push(items)

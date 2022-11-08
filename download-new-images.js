@@ -11,7 +11,7 @@ async function downloadNewImages() {
 
   const notDownloaded = await getNotDonwloaded()
 
-  console.log(`Found ${notDownloaded.length} previously known images to download`)
+  console.log('Found %d previously known images to download', notDownloaded.length)
 
   const newImageDescriptors = await getDescriptorsForNewImages()
 
@@ -30,7 +30,7 @@ async function downloadNewImages() {
 
     await sleep(delay)
 
-    if (await downloadImage(imgDesc).catch(() => {})) {
+    if (await downloadImage(imgDesc).catch(() => false)) {
       await markAsDownloaded(imgDesc)
 
       console.log('%d. Downloaded %s by %s', i + 1, imgDesc.id, imgDesc.author)

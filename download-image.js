@@ -11,22 +11,12 @@ async function downloadImage({ id, url, author, prompt }, tries = 3) {
     get(url, async response => {
       response.pipe(createWriteStream(`${imageFolder}/${imageFileName}`))
       response.on('end', () => resolve(true))
-      response.on('error', async () => {
-        if (tries) {
-          console.log('Failed to download %s. Retrying...', url)
+      response.on('error', retryOrReject)
+    }).on('error', retryOrReject)
 
-          try {
-            await sleep(delay)
-            resolve(await downloadImage({ id, url, author, prompt }, tries - 1))
-          } catch {
-            reject()
-          }
-        }
-        else reject()
-      })
-    }).on('error', async () => {
+    async function retryOrReject() {
       if (tries) {
-        console.log('Failed to download %s. Retrying...', url)
+        console.log('Failed to download %s\nRetrying...', url)
 
         try {
           await sleep(delay)
@@ -36,7 +26,7 @@ async function downloadImage({ id, url, author, prompt }, tries = 3) {
         }
       }
       else reject()
-    })
+    }
   })
 }
 

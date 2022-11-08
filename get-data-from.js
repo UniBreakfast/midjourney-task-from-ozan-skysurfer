@@ -8,21 +8,13 @@ async function getDataFrom(link, tries = 3) {
         const data = JSON.parse(json)
         resolve(data)
       } catch {
-        if (tries) {
-          console.log('Failed to get data from %s. Retrying...', link)
-
-          try {
-            await sleep(delay)
-            resolve(await getDataFrom(link, tries - 1))
-          } catch {
-            reject()
-          }
-        }
-        else reject()
+        retryOrReject()
       }
-    }).on('error', async () => {
+    }).on('error', retryOrReject)
+
+    async function retryOrReject() {
       if (tries) {
-        console.log('Failed to get data from %s. Retrying...', link)
+        console.log('Failed to get data from %s\nRetrying...', link)
 
         try {
           await sleep(delay)
@@ -32,7 +24,7 @@ async function getDataFrom(link, tries = 3) {
         }
       }
       else reject()
-    })
+    }
   })
 }
 

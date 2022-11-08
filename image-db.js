@@ -21,8 +21,7 @@ async function countImages() {
 }
 
 async function markAsDownloaded(imageDescriptor) {
-  // create file if not exists
-
+  doneList.push(imageDescriptor.id)
   await appendFile(DONE_LIST, imageDescriptor.id + '\n')
 }
 
