@@ -3,7 +3,7 @@ module.exports = { generateLinks }
 const baseURL = 'https://www.midjourney.com/api/public-feed/'
 
 function generateLinks() {
-  const orders = ['top', 'popular'/* , 'hot', 'new', '' */]
+  const orders = ['top', 'popular', 'hot', 'new', '']
   const pages = 3
   const caches = 2 // don't know what it means
   const links = []

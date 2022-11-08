@@ -1,6 +1,12 @@
 module.exports = { downloadTask: downloadNewImages }
 
+let busy
+
 async function downloadNewImages() {
+  if (busy) return
+
+  busy = true
+
   console.count("Let's download new images")
 
   const notDownloaded = await getNotDonwloaded()
@@ -34,6 +40,8 @@ async function downloadNewImages() {
   }
 
   console.log('Done. Waiting for next run...')
+
+  busy = false
 }
 
 const { getDescriptorsForNewImages } = require('./get-new-descriptors.js')
