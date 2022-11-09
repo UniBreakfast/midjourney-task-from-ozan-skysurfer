@@ -19,5 +19,5 @@ function run(fn, interval) {
 function markTime() {
   const now = new Date()
 
-  console.log(`\x1b[36m${now.getHours()}:${now.getMinutes()}\x1b[0m`)
+  console.log(`\x1b[36m${now.getHours()}:${String(now.getMinutes()).padStart(2, 0)}\x1b[0m`)
 }
