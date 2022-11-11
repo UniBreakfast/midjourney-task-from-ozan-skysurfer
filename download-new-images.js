@@ -7,7 +7,7 @@ async function downloadNewImages() {
 
   busy = true
 
-  console.count("Let's download new images")
+  console.count("Let's download new images! Round")
 
   const notDownloaded = await getNotDonwloaded()
 
