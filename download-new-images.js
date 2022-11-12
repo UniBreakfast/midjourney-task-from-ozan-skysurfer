@@ -9,7 +9,7 @@ async function downloadNewImages() {
 
   console.count("Let's download new images! Round")
 
-  const notDownloaded = await getNotDonwloaded()
+  const notDownloaded = await getNotDownloadedItemsFromDB()
 
   console.log('Found %d previously known images to download', notDownloaded.length)
 
@@ -45,7 +45,7 @@ async function downloadNewImages() {
 }
 
 const { getDescriptorsForNewImages } = require('./get-new-descriptors.js')
-const { addToDB, countImages, markAsDownloaded, getNotDonwloaded } = require('./image-db.js')
+const { addToDB, countImages, markAsDownloaded, getNotDownloadedItemsFromDB } = require('./image-db.js')
 const { downloadImage } = require('./download-image.js')
 const { delay } = require('./delay.js')
 const { sleep } = require('./sleep.js')

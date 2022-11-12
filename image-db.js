@@ -1,10 +1,10 @@
-module.exports = { addToDB, countImages, markAsDownloaded, readDB, writeDB, getNotDonwloaded }
+module.exports = { addToDB, countImages, markAsDownloaded, readDB, writeDB, getNotDownloadedItemsFromDB }
 
 const { readFile, writeFile, appendFile } = require('fs').promises
 const DB_FILE = 'db.json'
 const DONE_LIST = 'downloaded'
 let db
-let doneList
+let downloadedIds
 
 async function addToDB(...imageDescriptors) {
   if (!db) db = await readDB()
@@ -21,12 +21,12 @@ async function countImages() {
 }
 
 async function markAsDownloaded(imageDescriptor) {
-  doneList.push(imageDescriptor.id)
+  downloadedIds.push(imageDescriptor.id)
   await appendFile(DONE_LIST, imageDescriptor.id + '\n')
 }
 
 async function readDB() {
-  if (!doneList) doneList = (await readFile(DONE_LIST, 'utf8').catch(() => ''))?.split(/\r?\n/) || []
+  if (!downloadedIds) downloadedIds = (await readFile(DONE_LIST, 'utf8').catch(() => ''))?.split(/\r?\n/) || []
 
   if (db) return db
 
@@ -43,8 +43,8 @@ async function writeDB(db) {
   await writeFile(DB_FILE, JSON.stringify(db, null, 2))
 }
 
-async function getNotDonwloaded() {
+async function getNotDownloadedItemsFromDB() {
   if (!db) db = await readDB()
 
-  return db.filter(desc => !doneList.includes(desc.id))
+  return db.filter(descriptor => !downloadedIds.includes(descriptor.id))
 } 
