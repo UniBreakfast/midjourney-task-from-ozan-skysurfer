@@ -6,7 +6,10 @@ async function getDataFrom(link, tries = 3) {
       try {
         const json = await getBody(response)
         const data = JSON.parse(json)
-        resolve(data)
+
+        if (Array.isArray(data))  resolve(data)
+
+        retryOrReject()
       } catch {
         retryOrReject()
       }
